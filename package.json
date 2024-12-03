@@ -1,20 +1,41 @@
 {
-  "name": "screen-dimmer",
+  "name": "atenuador-pantalla",
   "version": "1.0.0",
+  "description": "Aplicación para atenuar la pantalla y reducir el cansancio visual",
   "main": "src/main.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "start": "electron .",
-    "package": "electron-packager . DimScreen --platform=win32 --arch=x64 --out=dist --icon=icon.ico --overwrite"
+    "build": "electron-builder"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "description": "",
   "dependencies": {
-    "electron": "^33.2.1"
+  
   },
   "devDependencies": {
-    "electron-packager": "^17.1.2"
+    "electron": "^25.0.0",
+    "electron-builder": "^24.13.3"
+  },
+  "build": {
+    "appId": "com.yerman2.atenuadorpantalla",
+    "productName": "Atenuador de Pantalla",
+    "copyright": "© 2024 Yerman2",
+    "directories": {
+      "output": "dist"
+    },
+    "files": [
+      "dist/**/*",
+      "src/**/*",  
+      "node_modules/**/*"
+    ],
+    "win": {
+      "target": "nsis",
+      "icon": "icono.ico"
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true
+    },
+    "extraMetadata": {
+      "version": "1.0.0"
+    }
   }
 }
