@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Control de Atenuación</title>
+</head>
+<body>
+  <h1>Atenuador de Pantalla</h1>
+  <label for="dim-slider">Nivel de atenuación:</label>
+  <input type="range" id="dim-slider" min="0" max="95" value="50" />
+  <span id="dim-value">50%</span>
+
+  <script>
+    const { ipcRenderer } = require('electron');
+    const slider = document.getElementById('dim-slider');
+    const valueDisplay = document.getElementById('dim-value');
+
+    slider.addEventListener('input', () => {
+      const value = slider.value;
+      valueDisplay.textContent = `${value}%`;
+      ipcRenderer.send('adjust-dim', parseInt(value));
+    });
+  </script>
+</body>
+</html>
