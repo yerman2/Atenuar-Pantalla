@@ -7,7 +7,8 @@
   <style>
     body {
       margin: 0;
-      background-color: rgba(0, 0, 0, 0); /* Nivel inicial */
+      background-color: rgba(0, 0, 0, 0.5); /* Nivel inicial */
+      pointer-events: none;
       height: 100vh;
       width: 100vw;
     }
@@ -16,6 +17,7 @@
 <body>
   <script>
     const { ipcRenderer } = require('electron');
+
     ipcRenderer.on('update-opacity', (_, opacity) => {
       document.body.style.backgroundColor = `rgba(0, 0, 0, ${opacity})`;
     });

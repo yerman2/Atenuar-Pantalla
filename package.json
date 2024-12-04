@@ -17,6 +17,7 @@
   "build": {
     "appId": "com.yerman2.atenuadorpantalla",
     "productName": "Atenuador de Pantalla",
+    "icon": "assets/icono.ico",
     "copyright": "© 2024 Yerman2",
     "directories": {
       "output": "dist"
@@ -28,7 +29,7 @@
     ],
     "win": {
       "target": "nsis",
-      "icon": "icono.ico"
+      "icon": "assets/sunoff.ico"
     },
     "nsis": {
       "oneClick": false,
