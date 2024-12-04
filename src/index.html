@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Control de Atenuación</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+      background-color: #f0f0f0;
+    }
+
+    h1 {
+      margin-bottom: 20px;
+    }
+
+    #dim-slider {
+      -webkit-appearance: none;
+      width: 300px;
+      height: 10px;
+      background: #ddd;
+      border-radius: 5px;
+      outline: none;
+      transition: background 0.3s;
+    }
+
+    #dim-slider::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 20px;
+      height: 20px;
+      background: #0078d7;
+      border-radius: 50%;
+      cursor: pointer;
+      box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+    }
+
+    #dim-slider::-moz-range-thumb {
+      width: 20px;
+      height: 20px;
+      background: #0078d7;
+      border-radius: 50%;
+      cursor: pointer;
+    }
+
+    #dim-value {
+      margin-top: 10px;
+      font-size: 16px;
+    }
+
+    button {
+      margin-top: 20px;
+      padding: 10px 20px;
+      font-size: 16px;
+      background-color: #0078d7;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #005a9e;
+    }
+  </style>
+</head>
+<body>
+  <h1>Atenuador de Pantalla</h1>
+  <label for="dim-slider">Nivel de atenuación:</label>
+  <input type="range" id="dim-slider" min="0" max="95" value="50" />
+  <span id="dim-value">50%</span>
+
+  <button id="toggle-overlay">Modo Pantalla Completa</button>
+
+  <script>
+    const { ipcRenderer } = require('electron');
+    const slider = document.getElementById('dim-slider');
+    const valueDisplay = document.getElementById('dim-value');
+    const toggleOverlayButton = document.getElementById('toggle-overlay');
+    let isFullscreen = true;
+
+    slider.addEventListener('input', () => {
+      const value = slider.value;
+      valueDisplay.textContent = `${value}%`;
+      ipcRenderer.send('adjust-dim', parseInt(value));
+    });
+
+    toggleOverlayButton.addEventListener('click', () => {
+      isFullscreen = !isFullscreen;
+      toggleOverlayButton.textContent = isFullscreen
+        ? 'Modo Pantalla Completa'
+        : 'Modo Sin Barra de Tareas';
+      ipcRenderer.send('toggle-overlay', isFullscreen);
+    });
+  </script>
+</body>
+</html>

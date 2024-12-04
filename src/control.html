@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Control de Atenuación</title>
+</head>
+<body>
+  <h1>Control de Atenuación</h1>
+  <input type="range" id="opacity-slider" min="0" max="1" step="0.1" value="0.5" />
+  
+  <script>
+    const slider = document.getElementById('opacity-slider');
+
+    slider.addEventListener('input', () => {
+      const opacity = parseFloat(slider.value);
+      window.electron.ipcRenderer.send('set-opacity', opacity);
+    });
+  </script>
+</body>
+</html>
